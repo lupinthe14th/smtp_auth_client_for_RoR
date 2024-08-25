@@ -1,0 +1,35 @@
+services:
+  rdb:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: "mysqladmin ping"
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      rdb:
+        condition: service_healthy
+    environment:
+      SECRET_KEY_BASE: secret
+      DB_HOST: rdb
+      DB_USERNAME: root
+      DB_PASSWORD:
+      DB_SSLCA:
+    volumes:
+      - .:/var/src/app
+
+volumes:
+  mysql-data:

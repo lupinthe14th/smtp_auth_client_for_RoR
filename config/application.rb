@@ -6,10 +6,15 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module SmtpAuthClient
+module SmtpAuthClientForRoR
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 7.2
+
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(ignore: %w[assets tasks])
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -18,15 +23,5 @@ module SmtpAuthClient
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = {
-      address:              'smtp.office365.com',
-      port:                 587,
-      domain:               'seiwa.co.jp',
-      user_name:            'HAYASI_kentaro@seiwa.co.jp',
-      password:             'your-password',
-      authentication:       'login',
-      enable_starttls_auto: true
-    }
   end
 end
