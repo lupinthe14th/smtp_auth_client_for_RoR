@@ -1,0 +1,22 @@
+---
+name: renovate-config-validator
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "renovate.json"
+      - ".github/workflows/check-renovate.yml"
+
+jobs:
+  validate:
+    # Execute when the source branch name of the PR does not match a pattern starting with 'release/'
+    if: ${{ !startsWith(github.head_ref, 'release/') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - uses: suzuki-shunsuke/github-action-renovate-config-validator@b54483862375f51910a60c4f498e927d4f3df466 # v1.0.1
+        with:
+          config-path: renovate.json

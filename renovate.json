@@ -1,6 +1,23 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ]
+  "configMigration": true,
+  "extends": ["config:recommended", "group:rubyOnRails"],
+  "timezone": "Asia/Tokyo",
+  "schedule": ["after 10am and before 5pm every weekday"],
+  "minimumReleaseAge": "3 days",
+  "rebaseWhen": "conflicted",
+  "separateMinorPatch": true,
+  "separateMultipleMajor": true,
+  "reviewers": ["@lupinthe14th"],
+  "patch": {
+    "automerge": true,
+    "platformAutomerge": true,
+    "schedule": ["after 10pm", "before 5am"]
+  },
+  "additionalBranchPrefix": "{{packageFileDir}}-",
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["Security"],
+    "schedule": []
+  }
 }
