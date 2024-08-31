@@ -1,0 +1,16 @@
+iname: Check UUID
+
+on:
+  # run manually
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Exec uuidgen
+        run: uuidgen
