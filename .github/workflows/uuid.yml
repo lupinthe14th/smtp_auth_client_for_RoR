@@ -1,4 +1,4 @@
-iname: Check UUID
+name: Check UUID
 
 on:
   # run manually
