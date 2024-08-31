@@ -3,6 +3,7 @@ iname: Check UUID
 on:
   # run manually
   workflow_dispatch:
+  push:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
